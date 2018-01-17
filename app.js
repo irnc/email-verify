@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-let Promise = require('bluebird'),
-    verify = Promise.promisify(require('./index.js').verify),
-    argv = process.argv.slice(2),
-    getAddressFromTextFile = require('./methods/readfromfile.js').getAddressFromTextFile,
-    loggerOptions = require('./logger.js').loggerOptions,
-    logger = require('./logger.js').logger
+const Promise = require('bluebird');
+const verify = Promise.promisify(require('./index.js').verify);
+const argv = process.argv.slice(2);
+const getAddressFromTextFile = require('./methods/readfromfile.js').getAddressFromTextFile;
+const loggerOptions = require('./logger.js').loggerOptions;
+const logger = require('./logger.js').logger;
 
 if (argv.length === 0) {
     throw new Error('You must provide one or more email addresses.')

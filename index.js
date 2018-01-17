@@ -1,9 +1,9 @@
 'use strict'
 
-let validator = require('validator').isEmail,
-    dns = require('dns'),
-    net = require('net'),
-    logger = require('./logger.js').logger
+const validator = require('validator').isEmail;
+const dns = require('dns');
+const net = require('net');
+const logger = require('./logger.js').logger;
 
 const defaultOptions = {
   port: 25,
