@@ -169,39 +169,43 @@ function beginSMTPQueries(params) {
     if (completed) {
       logger.server(response);
       switch (stage) {
-        case 0: if (response.indexOf('220') > -1 && !ended) {
+        case 0:
+          if (response.indexOf('220') > -1 && !ended) {
           // Connection Worked
-          banner = response;
-          var cmd = `EHLO ${params.options.fqdn}\r\n`;
-          logger.client(cmd);
-          socket.write(cmd, () => { stage++; response = ''; });
-        } else {
-          if (response.indexOf('421') > -1 || response.indexOf('450') > -1 || response.indexOf('451') > -1) { tryagain = true; }
-          socket.end();
-        }
+            banner = response;
+            var cmd = `EHLO ${params.options.fqdn}\r\n`;
+            logger.client(cmd);
+            socket.write(cmd, () => { stage++; response = ''; });
+          } else {
+            if (response.indexOf('421') > -1 || response.indexOf('450') > -1 || response.indexOf('451') > -1) { tryagain = true; }
+            socket.end();
+          }
           break;
-        case 1: if (response.indexOf('250') > -1 && !ended) {
+        case 1:
+          if (response.indexOf('250') > -1 && !ended) {
           // Connection Worked
-          var cmd = `MAIL FROM:<${params.options.sender}>\r\n`;
-          logger.client(cmd);
-          socket.write(cmd, () => { stage++; response = ''; });
-        } else {
-          socket.end();
-        }
+            var cmd = `MAIL FROM:<${params.options.sender}>\r\n`;
+            logger.client(cmd);
+            socket.write(cmd, () => { stage++; response = ''; });
+          } else {
+            socket.end();
+          }
           break;
-        case 2: if (response.indexOf('250') > -1 && !ended) {
+        case 2:
+          if (response.indexOf('250') > -1 && !ended) {
           // MAIL Worked
-          var cmd = `RCPT TO:<${params.email}>\r\n`;
-          logger.client(cmd);
-          socket.write(cmd, () => { stage++; response = ''; });
-        } else {
-          socket.end();
-        }
+            var cmd = `RCPT TO:<${params.email}>\r\n`;
+            logger.client(cmd);
+            socket.write(cmd, () => { stage++; response = ''; });
+          } else {
+            socket.end();
+          }
           break;
-        case 3: if (response.indexOf('250') > -1 || (params.options.ignore && response.indexOf(params.options.ignore) > -1)) {
+        case 3:
+          if (response.indexOf('250') > -1 || (params.options.ignore && response.indexOf(params.options.ignore) > -1)) {
           // RCPT Worked
-          success = true;
-        }
+            success = true;
+          }
           stage++;
           response = '';
           // close the connection cleanly.
