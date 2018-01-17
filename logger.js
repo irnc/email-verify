@@ -1,39 +1,39 @@
-var debug = false
+let debug = false;
 
-var log = function(level, msg) {
-  if(debug) {
-    console.log(level + ": " + msg)
+const log = function (level, msg) {
+  if (debug) {
+    console.log(`${level}: ${msg}`);
   }
-}
+};
 
-var logArray = function(level, array) {
-  if(debug) {
-    for(var i = 0; i < array.length; i++) {
-      console.log(level + ": " + array[i])
+const logArray = function (level, array) {
+  if (debug) {
+    for (let i = 0; i < array.length; i++) {
+      console.log(`${level}: ${array[i]}`);
     }
   }
-}
+};
 
 module.exports.logger = {
-  info: function(msg) {
-    log('INFO', msg)
+  info(msg) {
+    log('INFO', msg);
   },
-  error: function(msg) {
-    log('ERROR', msg)
+  error(msg) {
+    log('ERROR', msg);
   },
-  server: function(msg) {
-    logArray('SERVER', msg.split("\n"))
+  server(msg) {
+    logArray('SERVER', msg.split('\n'));
   },
-  client: function(msg) {
-    logArray('CLIENT', msg.split("\n"))
-  }
-}
+  client(msg) {
+    logArray('CLIENT', msg.split('\n'));
+  },
+};
 
 module.exports.loggerOptions = {
-  enable: function() {
-    debug = true
+  enable() {
+    debug = true;
   },
-  disable: function() {
-    debug = false
-  }
-}
+  disable() {
+    debug = false;
+  },
+};
