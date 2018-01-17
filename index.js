@@ -173,7 +173,7 @@ function beginSMTPQueries(params) {
           if (response.indexOf('220') > -1 && !ended) {
           // Connection Worked
             banner = response;
-            var cmd = `EHLO ${params.options.fqdn}\r\n`;
+            const cmd = `EHLO ${params.options.fqdn}\r\n`;
             logger.client(cmd);
             socket.write(cmd, () => { stage++; response = ''; });
           } else {
@@ -184,7 +184,7 @@ function beginSMTPQueries(params) {
         case 1:
           if (response.indexOf('250') > -1 && !ended) {
           // Connection Worked
-            var cmd = `MAIL FROM:<${params.options.sender}>\r\n`;
+            const cmd = `MAIL FROM:<${params.options.sender}>\r\n`;
             logger.client(cmd);
             socket.write(cmd, () => { stage++; response = ''; });
           } else {
@@ -194,7 +194,7 @@ function beginSMTPQueries(params) {
         case 2:
           if (response.indexOf('250') > -1 && !ended) {
           // MAIL Worked
-            var cmd = `RCPT TO:<${params.email}>\r\n`;
+            const cmd = `RCPT TO:<${params.email}>\r\n`;
             logger.client(cmd);
             socket.write(cmd, () => { stage++; response = ''; });
           } else {
@@ -210,7 +210,7 @@ function beginSMTPQueries(params) {
           response = '';
           // close the connection cleanly.
           if (!ended) {
-            var cmd = 'QUIT\r\n';
+            const cmd = 'QUIT\r\n';
             logger.client(cmd);
             socket.write(cmd);
           }
