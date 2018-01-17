@@ -233,8 +233,16 @@ function beginSMTPQueries(params) {
   });
 
   socket.once('end', () => {
+    let exists = undefined;
+
+    // Mailbox existence is definitive only when all stages has passed.
+    if (stage === 4) {
+      exists = success;
+    }
+
     logger.info('Closing connection');
     callback(null, {
+      exists,
       success, info: (`${params.email} is ${success ? 'a valid' : 'an invalid'} address`), addr: params.email, code: infoCodes.finishedVerification, tryagain, banner,
     });
   });
